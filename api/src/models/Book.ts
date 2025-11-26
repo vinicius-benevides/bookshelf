@@ -6,6 +6,10 @@ export interface IBook {
   description?: string;
   coverImageUrl?: string;
   createdBy?: string;
+  ratings?: {
+    user: Schema.Types.ObjectId;
+    score: number;
+  }[];
 }
 
 /**
@@ -25,6 +29,10 @@ export interface IBook {
  *           type: string
  *         coverImageUrl:
  *           type: string
+ *         ratingCount:
+ *           type: number
+ *         ratingAvg:
+ *           type: number
  *         createdAt:
  *           type: string
  *         updatedAt:
@@ -37,6 +45,12 @@ const bookSchema = new Schema<IBook>(
     description: { type: String, trim: true },
     coverImageUrl: { type: String },
     createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
+    ratings: [
+      {
+        user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+        score: { type: Number, min: 0, max: 5, required: true },
+      },
+    ],
   },
   { timestamps: true }
 );

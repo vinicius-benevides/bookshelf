@@ -10,6 +10,11 @@ export const register = async (req: Request, res: Response) => {
       return res.status(400).json({ message: 'Name, email and password are required' });
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ message: 'Invalid email format' });
+    }
+
     const existing = await userRepository.findByEmail(email);
     if (existing) {
       return res.status(409).json({ message: 'User already exists' });

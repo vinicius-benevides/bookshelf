@@ -52,6 +52,9 @@ router.use(authenticate);
  *               cover:
  *                 type: string
  *                 format: binary
+ *               coverUrl:
+ *                 type: string
+ *                 description: URL de uma imagem já hospedada (opcional)
  *     responses:
  *       201:
  *         description: Livro criado

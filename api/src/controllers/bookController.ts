@@ -4,13 +4,13 @@ import { bookRepository } from '../repositories/bookRepository';
 
 export const createBook = async (req: Request, res: Response) => {
   try {
-    const { title, author, description } = req.body;
+    const { title, author, description, coverUrl } = req.body;
 
     if (!title || !author) {
       return res.status(400).json({ message: 'Title and author are required' });
     }
 
-    const coverImageUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
+    const coverImageUrl = req.file ? `/uploads/${req.file.filename}` : coverUrl;
     const book = await bookRepository.create({
       title,
       author,

@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:6
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  api:
+    build: .
+    depends_on:
+      - mongo
+    ports:
+      - "3333:3333"
+    environment:
+      - PORT=3333
+      - MONGO_URI=mongodb://mongo:27017/bookshelf
+      - JWT_SECRET=changeme-super-secret
+      - UPLOAD_DIR=/app/uploads
+    volumes:
+      - ./uploads:/app/uploads
+    command: ["sh", "-c", "npm run start"]
+
+volumes:
+  mongo_data:

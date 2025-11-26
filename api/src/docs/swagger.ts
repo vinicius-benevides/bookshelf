@@ -1,6 +1,11 @@
 import swaggerJSDoc from 'swagger-jsdoc';
 import env from '../config/env';
 
+const servers = [{ url: `http://localhost:${env.port}`, description: 'Local' }];
+if (env.swaggerPublicUrl) {
+  servers.push({ url: env.swaggerPublicUrl, description: 'Public' });
+}
+
 const swaggerDefinition = {
   openapi: '3.0.0',
   info: {
@@ -8,7 +13,7 @@ const swaggerDefinition = {
     version: '1.0.0',
     description: 'API para gestão da prateleira virtual de livros',
   },
-  servers: [{ url: `http://localhost:${env.port}`, description: 'Local' }],
+  servers,
   tags: [
     { name: 'Auth', description: 'Cadastro e login' },
     { name: 'Books', description: 'Catálogo de livros' },

@@ -20,6 +20,7 @@ services:
       - MONGO_URI=mongodb://mongo:27017/bookshelf
       - JWT_SECRET=changeme-super-secret
       - UPLOAD_DIR=/app/uploads
+      - SWAGGER_PUBLIC_URL=
     volumes:
       - ./uploads:/app/uploads
     command: ["sh", "-c", "npm run start"]
